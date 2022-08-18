@@ -22,15 +22,15 @@ breads.get('/new', (req, res) => {
 breads.get('/:arrayIndex', (req, res) => {
   if (Bread[req.params.arrayIndex]) {
     res.render('Show', {
-      bread:Bread[req.params.arrayIndex]
+      bread:Bread[req.params.arrayIndex],
+      index: req.params.arrayIndex,
     })
   } else {
-    res.send('404')
+    res.render('404')
   }
 })
 
 //Create
-// CREATE
 breads.post('/', (req, res) => {
   if (!req.body.image) {
     req.body.image = 'https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80'
@@ -44,5 +44,10 @@ breads.post('/', (req, res) => {
   res.redirect('/breads')
 })
 
+//Delete
+breads.delete('/:indexArray', (req, res) => {
+  Bread.splice(req.params.indexArray, 1)
+  res.status(303).redirect('/breads')
+})
 
 module.exports = breads
