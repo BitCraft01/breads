@@ -10,7 +10,7 @@ breads.get('/', (req, res) => {
     .then(foundBakers => {
       Bread.find()
       .then(foundBreads => {
-          res.render('index', {
+          res.render('Index', {
               breads: foundBreads,
               bakers: foundBakers,
               title: 'Index Page'
@@ -34,8 +34,8 @@ breads.get('/new', (req, res) => {
 
 
 //Show
-breads.get('/:id', (req, res) => {
-    Bread.findById(req.params.id)
+breads.get('/:arrayIndex', (req, res) => {
+    Bread.findById(req.params.arrayIndex)
         .populate('baker')
         .then(foundBread => {
           const bakedBy = foundBread.getBakedBy()
@@ -62,10 +62,10 @@ breads.post('/', (req, res) => {
   })
   
 // EDIT
-breads.get('/:id/edit', (req, res) => {
+breads.get('/:indexArray/edit', (req, res) => {
   Baker.find()
     .then(foundBakers => {
-        Bread.findById(req.params.id)
+        Bread.findById(req.params.indexArray)
           .then(foundBread => {
             res.render('edit', {
                 bread: foundBread, 
@@ -78,23 +78,23 @@ breads.get('/:id/edit', (req, res) => {
 
 
   //Update
-breads.put('/:id', (req, res) => {
+breads.put('/:arrayIndex', (req, res) => {
   if(req.body.hasGluten === 'on'){
     req.body.hasGluten = true
   } else {
     req.body.hasGluten = false
   }
-  Bread.findByIdAndUpdate(req.params.id, req.body, { new: true }) 
+  Bread.findByIdAndUpdate(req.params.arrayIndex, req.body, { new: true }) 
     .then(updatedBread => {
       console.log(updatedBread) 
-      res.redirect(`/breads/${req.params.id}`) 
+      res.redirect(`/breads/${req.params.arrayIndex}`) 
     })
 })
 
 
 //Delete
-breads.delete('/:id', (req, res) => {
-  Bread.findByIdAndDelete(req.params.id) 
+breads.delete('/:arrayIndex', (req, res) => {
+  Bread.findByIdAndDelete(req.params.arrayIndex) 
     .then(deletedBread => { 
       res.status(303).redirect('/breads')
     })

@@ -1,5 +1,5 @@
 const React = require('react')
-const baker = require('../controllers/bakers_controller')
+//const baker = require('../controllers/bakers_controller')
 const Default = require('./layouts/Default')
 
 function Index ({breads, bakers, title}){
