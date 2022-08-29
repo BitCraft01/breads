@@ -13,7 +13,7 @@ function Show ({baker}) {
                 baker.breads.map((bread)=> {
                     return (
                         <li key={bread.id}>
-                    {bread.name}
+                            {bread.name}
                         </li>
                     )
                 })
